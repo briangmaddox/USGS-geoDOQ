@@ -1,0 +1,43 @@
+			Format of the GeoTIFF
+
+
+   This document describes the keys from the 12/96 DOQ standard which are 
+used to populate the GeoTIFF header, as well as the keys in the GeoTIFF and
+TIFF standards.  For more information, please consult the following URL's:
+
+   GeoTIFF standard: http://mcmcweb.er.usgs.gov/drg/geotiff.html
+   TIFF Standard:    http://mcmcweb.er.usgs.gov/drg/tiff_60.pdf (Acrobat)
+   DRG Standard:     http://mcmcweb.er.usgs.gov/drg/drg_std.html
+   Note:  The DRG standard provides a detailed description of a NMD GeoTIFF
+          product
+
+
+Tagged Information:
+   ModelTiepointTag (GeoTIFF) - UTM coordinates of the upper left corner
+      obtained from the XY_ORIGIN key
+   ModelPixelScaleTag (GeoTIFF) - Pixel scale for referencing
+      obtained from the HORIZONTAL_RESOLUTION tag
+
+Keyed Information:
+   GTModelTypeGeoKey (GeoTIFF), GTRasterTypeGeoKey, ProjectedCSTypeGeoKey,
+     and PCSCitationGeoKey - these keys are used for georeferencing information
+     and hold items such as the coordinate zone, ect.  They come from the 
+     following DOQ keywords:
+       HORIZONTAL_DATUM (or SECONDARY_HORIZONTAL_DATUM)
+       XY_ORIGIN
+       HORIZONTAL_RESOLUTION
+       COORDINATE_ZONE
+
+   TIFFTAG_IMAGEWIDTH (TIFF) - SAMPLES_AND_LINES
+   TIFFTAG_IMAGELENGTH (TIFF) - SAMPLES_AND_LINES
+   TIFFTAG_BITSPERSAMPLE (TIFF) - BITS_PER_PIXEL
+   TIFFTAG_PHOTOMETRIC (TIFF) - BAND_ORGANIZATION
+   TIFFTAG_DATETIME (TIFF) - PRODUCTION_DATE
+   TIFFTAG_IMAGEDESCRIPTION (TIFF) - QUADRANGLE_NAME and QUADRANT
+   TIFFTAG_SAMPLESPERPIXEL (TIFF) - BAND_ORGANIZATION
+   
+
+   The .hdr files contain all of the DOQ 12/96 keyword header information
+present.  They take the name of the original DOQ and add a .hdr to the end, 
+ie, C2508038.NWS.hdr is the metadata file for C2508038.NWS.  Within that file, 
+you will find an exact copy of the keyword header contained in the USGS DOQ.

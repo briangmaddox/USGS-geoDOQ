@@ -1,0 +1,59 @@
+		       doq2geotiff Users Manual
+
+   This document describes the program doq2geotiff.  This program will convert
+a DOQ that meets the 12/96 keyword-based header standard and convert it to a
+GeoTIFF which is very similar to a USGS DRG file.  The resulting GeoTIFF
+images can be viewed in most standard TIFF viewers or in GIS software (such as
+ArcView 3, Imagine, ect).   Currently, the software can handle BIP and Grey
+image data, but not BIL or BSQ formats.  These formats are slated for a future
+release.
+
+  The program is run with the following syntax:
+
+   doq2geotiff [option] [doq-file geotiff-file]
+
+where the command line options are:
+
+-V  display the version of the executable
+-p  use the primary datum information to store into the GeoTIFF (default)
+-s  use the secondary datum information to store into the GeoTIFF
+-t  generates an ARC world file whose name will be geotiff-file.tfw
+-h  outputs an ASCII header file containing the metadata (geotiff-file.hdr)
+
+   If called with the -p argument, the program uses the primary datum 
+information to populate the GeoTIFF header.  This information is pulled
+from the following DOQ keywords:
+	HORIZONTAL_DATUM
+	XY_ORIGIN
+	HORIZONTAL_RESOLUTION
+	COORDINATE_ZONE
+   For -s, the SECONDARY_HORIZONTAL_DATUM and SECONDARY_XY_ORIGIN DOQ keywords
+are used.
+
+Here are a few examples:
+barney:/disk1/geotiff1>./doq2geotiff -V
+./doq2geotiff: $Revision: 1.1.1.1 $
+
+barney:/disk1/geotiff1>./doq2geotiff -s C2508038.NWS C2508038.tiff
+
+and so on
+
+   If the program cannot find a valid HORIZONTAL_DATUM DOQ keyword, it will
+assume the datum of NAD83.  Note that if it cannot find a suitable datum, the
+georeferencing information will be invalid.
+
+   For a listing of all keywords from the 12/96 DOQ header which are used in
+the creation of the GeoTIFF, as well as additional information, please consult
+the file format.txt which is also in this distribution.
+
+
+Bug Reporting:
+   To report a bug, mail listing to bmaddox@usgs.gov with the following
+information:
+
+   1) Error messages
+   2) Operating system (output of "uname -a")
+   3) Output of the doq2geotiff -V command
+   4) Types of files you were using and their filenames.
+   5) Any other information which is pertinent, such as other processes
+      running at the time.

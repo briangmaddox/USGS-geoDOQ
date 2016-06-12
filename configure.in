@@ -1,0 +1,79 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(bip2bil.cpp)
+
+dnl To make sure we build the config.h file
+AC_CONFIG_HEADER(config.h)
+
+dnl Changed here since my stuff lives under the root of my home directory
+AC_CONFIG_AUX_DIR(`pwd`/config)
+
+dnl Changed here since my stuff lives under the root of my home directory
+AC_PREFIX_DEFAULT($HOME)
+
+dnl Define C++ as the language to use
+AC_LANG_CPLUSPLUS
+
+dnl Check for the machine type
+AC_CANONICAL_HOST
+
+dnl set the enable_debug var
+AC_ARG_ENABLE(debug,
+[  --enable-debug        Generate debugging information during compilation.],
+enable_debug=yes,enable_debug=no)
+AC_SUBST(enable_debug)
+
+AC_ARG_ENABLE(noucharread, [  --enable-noucharread    Define for ifstream with no unsigned char read.], enable_noucharread=yes,enable_noucharread=no)
+AC_SUBST(enable_noucharread)
+
+AC_ARG_ENABLE(edc, [  --enable-edc            Set to perform specific operations for the production system.], enable_edc=yes,enable_edc=no)
+AC_SUBST(enable_edc)
+
+dnl Add the directories that hold the other libraries in case not in system
+AC_ARG_WITH(tiffdir, [  --with-tiffdir=dir      Use TIFF includes in directory dir],[TIFFINC=$withval])
+if test "$TIFFINC" ; then
+  TIFF_INC="-I${TIFFINC}"
+else
+  TIFF_INC=""
+fi
+AC_SUBST(TIFF_INC,$TIFF_INC) 
+
+AC_ARG_WITH(geotiffdir, [  --with-geotiffdir=dir   Use GeoTIFF includes in directory dir],[GEOTIFFINC=$withval])
+if test "$GEOTIFFINC" ; then
+  GEOTIFF_INC="-I${GEOTIFFINC}"
+else
+  GEOTIFF_INC=""
+fi
+AC_SUBST(GEOTIFF_INC,$GEOTIFF_INC)
+
+AC_ARG_WITH(tifflib, [  --with-tifflib=dir      Use TIFF library path of dir],[TIFFLIB=$withval])
+if test "$TIFFLIB" ; then
+  TIFF_LIB="-L${TIFFLIB}"
+else
+  TIFF_LIB=""
+fi
+AC_SUBST(TIFF_LIB,$TIFF_LIB)
+
+AC_ARG_WITH(geotifflib, [  --with-geotifflib=dir   Use GeoTIFF library path of dir],[GEOTIFFLIB=$withval])
+if test "$GEOTIFFLIB" ; then
+  GEOTIFF_LIB="-L${GEOTIFFLIB}"
+else
+  GEOTIFF_LIB=""
+fi
+AC_SUBST(GEOTIFF_LIB,$GEOTIFF_LIB)
+
+
+dnl Checks for programs
+AC_PROG_CXX
+AC_PROG_RANLIB
+
+dnl Checks for libraries
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS([string vector iostream fstream exception getopt.h sstream time.h stdio.h],,[echo "Unable to locate all necessary headers.  Consult config.log for details"; exit 1])
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(strstr)
+
+dnl Now output our files
+AC_OUTPUT(Makefile)

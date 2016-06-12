@@ -1,0 +1,38 @@
+UPDATE:  This software is covered by the Mozilla Public License.  See LICENSE
+for more information.  This license covers ALL files in this source 
+distribution.
+
+   This is the USGS doq2geotiff program.  It takes keyword format USGS
+Digital Orthophoto's and converts them into GeoTIFF format.  The usage of the
+program can be found by running it as "doq2geotiff -?" without the quotes.
+
+Here are some of the "problems" which have come up with adding SPCS to 
+doq2geotiff.
+
+1) Louisiana Offshore isn't supported by GeoTIFF.  Currently, the conversion 
+   software will output an error message if it encounters it.  It is not
+   currently known how many quads this will affect.  Work is being done to see
+   if it maps closely enough to one of the other Louisiana SP zones.
+
+2) International Feet aren't support by GeoTIFF.  It is encoded as a user
+   defined linear unit.  Some viewers here at MCMC had problems loading
+   GeoTIFFs with this setting.  In some cases, they crashed fairly badly
+   so the user may wish to beware if they try this.
+
+3) Many (if not all) of the GIS packages here ignore the linear unit measure
+   and assume meters.  This has had the observed effect of right number, wrong
+   unit, to crashing the GIS.
+
+
+   Note that this directory also houses some other utilities which work on
+DOQ's.  Some of these utilities may or may not be in a state where they compile
+as they may not be have been converted to use the new Image library yet.  If 
+not, you may have to do the porting yourself or see if I have a newer version.
+
+   As per the MPL, there is no warranty or support offered with any of the
+utilities distributed here.  This is especially true with versions of this
+software compiled on a Win32 system.  There is no guarantee that this software
+will not crash horribly, so it's probably a good idea to not base your entire
+business plan on using this software.  The terms and conditions of the MPL
+also cover any use of this source in commercial software packages.  See LICENSE
+for details.
